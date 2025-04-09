@@ -53,25 +53,35 @@
      ("\$\{[^}]+\}" 0 'ef-themes-heading-4 t) "${ }"))
   )
 
-(use-package html-mode
-  :mode "\\.ejs\\'"
-  :hook (html-mode . custom-face)
-  )
+;; (use-package html-mode
+;;   :mode "\\.ejs\\'"
+;;   :hook (html-mode . custom-face)
+;;   )
 
 (use-package js
- :config (setq js-indent-level 2)
- :hook ((js-mode . custom-face))
-)
+  :config (setq js-indent-level 2)
+  :hook ((js-mode . custom-face))
+  )
 
 (use-package css-mode
- :config (setq css-indent-offset 2)
-)
+  :config (setq css-indent-offset 2)
+  )
 
 (use-package eglot
- :init (setq eglot-autoshutdown t)
- :mode ("\\.js\\'" . js-mode)
- :hook ((js-mode . eglot-ensure))
-)
+  :init (setq eglot-autoshutdown t)
+  :mode (("\\.js\\'" . js-mode)
+	 ("\\.go\\'" . go-ts-mode))
+  :hook ((js-mode . eglot-ensure)
+	 (go-ts-mode . eglot-ensure))
+  )
+
+(use-package go-ts-mode  
+  :hook (go-ts-mode . my-tsss-hook)
+  :config
+  (defun my-tsss-hook ()
+    (set-face-attribute 'font-lock-function-name-face nil
+			:foreground "orange"))
+  )
 
 (use-package ediff
   :config
@@ -81,7 +91,7 @@
   (("<f12>" . ediff)
    ("<f6>" . ediff-previous-difference)
    ("<f7>" . ediff-next-difference))
-)
+  )
 
 (use-package corfu
   :custom
@@ -203,23 +213,31 @@
      (define-key vc-dir-mode-map [remap backward-word] 'vc-dir-unmark)))
 
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(blink-cursor-mode nil)
- '(tool-bar-mode nil)
- '(menu-bar-mode nil)
- '(tooltip-mode nil)
- '(scroll-bar-mode nil)
- '(fringe-mode '(13 . 13) nil (fringe))
- 
  '(custom-enabled-themes '(ef-maris-dark))
  '(custom-safe-themes
-   '("97283a649cf1ffd7be84dde08b45a41faa2a77c34a4832d3884c7f7bba53f3f5" "ed1b7b4db911724b2767d4b6ad240f5f238a6c07e98fff8823debcfb2f7d820a" default))
- '(package-selected-packages '(web-mode cape corfu ef-themes xah-fly-keys))
+   '("97283a649cf1ffd7be84dde08b45a41faa2a77c34a4832d3884c7f7bba53f3f5"
+     "ed1b7b4db911724b2767d4b6ad240f5f238a6c07e98fff8823debcfb2f7d820a"
+     default))
+ '(fringe-mode '(13 . 13) nil (fringe))
+ '(menu-bar-mode nil)
+ '(package-selected-packages '(cape corfu ef-themes xah-fly-keys))
+ '(scroll-bar-mode nil)
  '(size-indication-mode t)
  '(sql-postgres-options '("-P" "pager=off"))
+ '(tool-bar-mode nil)
+ '(tooltip-mode nil)
  '(vc-annotate-background-mode t))
 
 (custom-set-faces
-  '(default ((t (:family "Adwaita Mono" :foundry "UKWN" :slant normal :weight regular :height 113 :width normal))))
- ;; '(default ((t (:family "Noto Sans Mono" :foundry "GOOG" :slant normal :weight regular :height 113 :width normal))))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Adwaita Mono" :foundry "UKWN" :slant normal :weight regular :height 113 :width normal))))
  '(cursor ((t (:background "gold1")))))
