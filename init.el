@@ -126,11 +126,6 @@
    ("<f7>"  . ediff-next-difference))
   )
 
-;; (use-package go-ts-mode
-;;   :config
-;;   (setq go-ts-mode-indent-offset 2)
-;;   )
-
 (use-package ibuffer
   :config
   (define-key ibuffer-mode-map [remap xah-smart-delete] 'ibuffer-mark-for-delete)
