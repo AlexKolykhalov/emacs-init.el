@@ -212,12 +212,13 @@
 	)
   )
 
-(custom-set-variables 
+(custom-set-variables
  '(auth-source-save-behavior nil)
  '(blink-cursor-mode nil)
  '(custom-enabled-themes '(ef-maris-dark))
  '(custom-safe-themes
    '("01a9797244146bbae39b18ef37e6f2ca5bebded90d9fe3a2f342a9e863aaa4fd"
+     "aff0396925324838889f011fd3f5a0b91652b88f5fd0611f7b10021cc76f9e09"
      "97283a649cf1ffd7be84dde08b45a41faa2a77c34a4832d3884c7f7bba53f3f5"
      "ed1b7b4db911724b2767d4b6ad240f5f238a6c07e98fff8823debcfb2f7d820a"
      default))
@@ -227,11 +228,9 @@
  '(scroll-bar-mode nil)
  '(size-indication-mode t)
  '(sql-postgres-options '("-P" "pager=off"))
- ;; '(tab-width 2)
  '(tool-bar-mode nil)
  '(tooltip-mode nil)
- '(vc-annotate-background-mode t)
- )
+ '(vc-annotate-background-mode t))
 
 (custom-set-faces
  '(default ((t (:family "Adwaita Mono" :foundry "UKWN" :slant normal :weight regular :height 113 :width normal))))
