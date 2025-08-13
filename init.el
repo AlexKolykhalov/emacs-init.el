@@ -9,6 +9,9 @@
 ;; Eldoc
 (setq eldoc-echo-area-use-multiline-p nil)
 
+;; Find-dired
+(setq find-ls-option '("-exec ls -ldh {} +" . ""))
+
 ;; google-chrome browser by default (open html file C-v)
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome-stable")
@@ -83,6 +86,8 @@
 	("SPC w l" . xref-go-back) 
 	("g"       . xah-select-line)
 	("SPC i l" . rename-buffer)
+	("SPC i w" . 'find-dired)
+	("SPC i q" . 'grep)
 	("SPC l s" . flymake-goto-next-error)
 	("SPC l d" . flymake-show-project-diagnostics)
 	("SPC l c" . eldoc)
