@@ -8,6 +8,19 @@
 (setq completion-ignore-case t)
 (setq tab-always-indent 'complete)
 
+;; Eglot
+(setq eglot-sync-connect nil)
+(setq eglot-events-buffer-config '(:size 0 :format short)) ;; disable event logging completely
+(setq eglot-max-file-watches 5000)
+(setq eglot-report-progress nil)
+(setq eglot-code-action-indications nil)
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-ignored-server-capabilities :documentOnTypeFormattingProvider)
+  (add-to-list 'eglot-ignored-server-capabilities :inlayHintProvider)
+  (add-to-list 'eglot-ignored-server-capabilities :documentHighlightProvider)
+  (add-to-list 'eglot-ignored-server-capabilities :semanticTokensProvider)
+  )
+
 ;; Eldoc
 (setq eldoc-echo-area-use-multiline-p nil)
 
@@ -24,9 +37,6 @@
 ;; (setq create-lockfiles nil)
 
 ;; position of the buffers
-;; (BUFFER-MATCHING-RULE
-;;  LIST-OF-DISPLAY-BUFFER-FUNCTIONS
-;;  OPTIONAL-PARAMETERS)
 (setq display-buffer-alist
       '(
 	("\\*Help\\*"
@@ -61,13 +71,14 @@
    )
   )
 
-(defun my-log-edit-files-lock-height (&rest _)
-  (and-let* ((win (get-buffer-window "*log-edit-files*")))
-    (with-selected-window win
-      (setq-local window-size-fixed 'height)
-      (window-resize win (- 5 (window-height win))))))
+;; (defun my-log-edit-files-lock-height (&rest _)
+;;   (and-let* ((win (get-buffer-window "*log-edit-files*")))
+;;     (with-selected-window win
+;;       (setq-local window-size-fixed 'height)
+;;       (window-resize win (- 5 (window-height win))))))
 
-(advice-add 'log-edit-show-files :after #'my-log-edit-files-lock-height)
+;; ;; fix height of *log-edit-files*
+;; (advice-add 'log-edit-show-files :after #'my-log-edit-files-lock-height)
 
 (use-package corfu
   :ensure t
@@ -82,8 +93,7 @@
   :bind
   (:map corfu-map
 	("C-n" . corfu-next)
-	("C-p" . corfu-previous))
-  )
+	("C-p" . corfu-previous)))
 
 (use-package cape
   :ensure t
@@ -132,7 +142,7 @@
 	("3"       . nil)
 	("C-SPC"   . dabbrev-completion)
 	("SPC w j" . xref-find-references)
-	("SPC w l" . xref-go-back) 
+	("SPC w l" . xref-go-back)
 	("g"       . xah-select-line)
 	("SPC i l" . rename-buffer)
 	("SPC i w" . 'find-dired)
