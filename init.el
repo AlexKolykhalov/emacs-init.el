@@ -34,7 +34,6 @@
 ;; disable lockfiles & disable emacs autosave & lockfiles
 (setq tramp-auto-save-directory "~/.emacs.d/auto-save-list")
 (setq make-backup-files nil)
-;; (setq create-lockfiles nil)
 
 ;; position of the buffers
 (setq display-buffer-alist
@@ -44,10 +43,6 @@
 	 (dedicated . t))
 	("\\*vc-git-stash*\\*"
 	 (display-buffer-use-some-window))
-	;; ("\\*vc-git*\\*"
-	;;  (display-buffer-reuse-mode-window display-buffer-below-selected)
-	;;  (window-height . 10)
-	;;  (dedicated . t))
 	("\\*Warnings\\*"
 	 (display-buffer-reuse-mode-window display-buffer-at-bottom)
 	 (dedicated . t)
