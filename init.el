@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: nil; -*-
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
@@ -20,6 +22,52 @@
 (setq tramp-auto-save-directory "~/.emacs.d/auto-save-list")
 (setq make-backup-files nil)
 ;; (setq create-lockfiles nil)
+
+;; position of the buffers
+;; (BUFFER-MATCHING-RULE
+;;  LIST-OF-DISPLAY-BUFFER-FUNCTIONS
+;;  OPTIONAL-PARAMETERS)
+(setq display-buffer-alist
+      '(
+	("\\*Help\\*"
+	 (display-buffer-reuse-mode-window display-buffer-below-selected)
+	 (dedicated . t))
+	("\\*vc-git-stash*\\*"
+	 (display-buffer-use-some-window))
+	;; ("\\*vc-git*\\*"
+	;;  (display-buffer-reuse-mode-window display-buffer-below-selected)
+	;;  (window-height . 10)
+	;;  (dedicated . t))
+	("\\*Warnings\\*"
+	 (display-buffer-reuse-mode-window display-buffer-at-bottom)
+	 (dedicated . t)
+	 (window-height . 5))
+	("\\*eldoc\\*"
+	 (display-buffer-reuse-mode-window display-buffer-below-selected)
+	 (window-height . 10)
+	 (dedicated . t))
+	("\\*Shell Command Output\\*"
+	 (display-buffer-reuse-mode-window display-buffer-below-selected)
+	 (window-height . 10)
+	 (dedicated . t))
+	))
+
+;; custom color for `${ }` in JS files & EJS templates
+(defun custom-face ()
+  (font-lock-add-keywords
+   nil
+   '(("<%[^%]*%>"   0 'ef-themes-heading-4 t) "<% %>"
+     ("\$\{[^}]+\}" 0 'ef-themes-heading-4 t) "${ }")
+   )
+  )
+
+(defun my-log-edit-files-lock-height (&rest _)
+  (and-let* ((win (get-buffer-window "*log-edit-files*")))
+    (with-selected-window win
+      (setq-local window-size-fixed 'height)
+      (window-resize win (- 5 (window-height win))))))
+
+(advice-add 'log-edit-show-files :after #'my-log-edit-files-lock-height)
 
 (use-package corfu
   :ensure t
@@ -152,44 +200,6 @@
 	("<f8>" . isearch-repeat-forward)
 	("<f9>" . isearch-repeat-backward)
 	)
-  )
-
-;; position of the buffers
-;; (BUFFER-MATCHING-RULE
-;;  LIST-OF-DISPLAY-BUFFER-FUNCTIONS
-;;  OPTIONAL-PARAMETERS)
-(setq display-buffer-alist
-      '(
-	("\\*Help\\*"
-	 (display-buffer-reuse-mode-window display-buffer-below-selected)
-	 (dedicated . t))
-	("\\*vc-git-stash*\\*"
-	 (display-buffer-use-some-window))
-	;; ("\\*vc-git*\\*"
-	;;  (display-buffer-reuse-mode-window display-buffer-below-selected)
-	;;  (window-height . 10)
-	;;  (dedicated . t))
-	("\\*Warnings\\*"
-	 (display-buffer-reuse-mode-window display-buffer-at-bottom)
-	 (dedicated . t)
-	 (window-height . 5))
-	("\\*eldoc\\*"
-	 (display-buffer-reuse-mode-window display-buffer-below-selected)
-	 (window-height . 10)
-	 (dedicated . t))
-	("\\*Shell Command Output\\*"
-	 (display-buffer-reuse-mode-window display-buffer-below-selected)
-	 (window-height . 10)
-	 (dedicated . t))
-	))
-
-;; custom color of ejs templates and `${ }` in js files
-(defun custom-face ()
-  (font-lock-add-keywords
-   nil
-   '(("<%[^%]*%>"   0 'ef-themes-heading-4 t) "<% %>"
-     ("\$\{[^}]+\}" 0 'ef-themes-heading-4 t) "${ }")
-   )
   )
 
 (use-package js
