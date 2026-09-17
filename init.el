@@ -81,6 +81,7 @@
 	("="       . nil)
 	("-"       . nil)
 	("'"       . nil)
+	("3"       . nil)
 	("C-SPC"   . dabbrev-completion)
 	("SPC w j" . xref-find-references)
 	("SPC w l" . xref-go-back) 
@@ -88,6 +89,8 @@
 	("SPC i l" . rename-buffer)
 	("SPC i w" . 'find-dired)
 	("SPC i q" . 'grep)
+	("SPC l q" . 'sql-postgres)
+	("SPC l 9" . 'async-shell-command)
 	("SPC l s" . flymake-goto-next-error)
 	("SPC l d" . flymake-show-project-diagnostics)
 	("SPC l c" . eldoc)
@@ -160,10 +163,12 @@
 	("\\*Help\\*"
 	 (display-buffer-reuse-mode-window display-buffer-below-selected)
 	 (dedicated . t))
-	("\\*vc-git.*\\*"
-	 (display-buffer-reuse-mode-window display-buffer-below-selected)
-	 (window-height . 10)
-	 (dedicated . t))
+	("\\*vc-git-stash*\\*"
+	 (display-buffer-use-some-window))
+	;; ("\\*vc-git*\\*"
+	;;  (display-buffer-reuse-mode-window display-buffer-below-selected)
+	;;  (window-height . 10)
+	;;  (dedicated . t))
 	("\\*Warnings\\*"
 	 (display-buffer-reuse-mode-window display-buffer-at-bottom)
 	 (dedicated . t)
